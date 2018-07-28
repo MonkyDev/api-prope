@@ -34,15 +34,16 @@
                     <td> {{ !empty($prestamo->TrabajadorRecibe)?$prestamo->TrabajadorRecibe:'-' }} </td>
                     <td> <b>{{ $prestamo->desc_stats }} </b></td>
                     <td class="text-center">
-                      <button id="show-obsv" class="btn btn-default" data-unique="seguimiento" title="ver observaciones">
+                      <button id="show-obsv" class="btn btn-default seguimiento" title="ver observaciones">
                         <a href="{{ route('allobsv',['id'=>$prestamo->id_pre]) }}"><i class="glyphicon glyphicon-eye-open"></i></a>
                       </button>
-                      
+                      @include('modals.show_observacion')
                     </td>
                     <td class="text-center">
-                      <button id="show-doc" class="btn btn-default" data-unique="seguimiento" title="ver documentos prestados">
+                      <button id="show-doc" class="btn btn-default seguimiento" title="ver documentos prestados">
                         <a href="{{ route('alldopre',['id'=>$prestamo->id_pre]) }}"><i class="glyphicon glyphicon-info-sign" ></i></a>               
                       </button>
+                      @include('modals.show_documentos')
                     </td>
                   </tr>
                 @endforeach

@@ -79,6 +79,7 @@ class HomeController extends Controller
 
       $prestador = \DB::table('tbl_prestaciones AS PRE')
             ->where('PRE.dni', 'LIKE', '%'.$txt_search.'%')
+            ->where('PRE.fk_status',3)
             ->get();
      
       return view('search/search', array('title'=>'Lista de resultados de la búsqueda...', 'prestador' => $prestador));

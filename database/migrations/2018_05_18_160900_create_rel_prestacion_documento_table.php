@@ -18,7 +18,7 @@ class CreateRelPrestacionDocumentoTable extends Migration
             $table->unsignedInteger('fk_prestamo');
             $table->unsignedInteger('fk_documento');
             $table->string('tipo_documento',15);
-            $table->string();
+            $table->string('anotaciones');
 
             $table->timestamps();
             $table->engine = 'InnoDB';

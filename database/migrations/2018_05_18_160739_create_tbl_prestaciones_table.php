@@ -23,7 +23,7 @@ class CreateTblPrestacionesTable extends Migration
             $table->unsignedInteger('fk_trabajador_recibe')->nullable();
             $table->unsignedInteger('fk_status')->default(1);
 
-            $table->smallInteger('dias_permitidos',5)->unsigned()->default(1);
+            $table->unsignedTinyInteger('dias_permitidos')->default(1);
             $table->dateTime('salida');
             $table->dateTime('regresa')->nullable();
             

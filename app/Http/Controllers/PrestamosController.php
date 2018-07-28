@@ -83,6 +83,7 @@ class PrestamosController extends Controller
     }
 */
     public function getCreate(Request $request){
+      //dd($request);
         $validatedData = $request->validate([
             'dni' => 'required|numeric|min:4',
             'documents' => 'required|array',
@@ -91,7 +92,7 @@ class PrestamosController extends Controller
             'anotaciones' => 'string|max:255',
         ]);
         if ($validatedData) {
-            $datas_mtv = Motivo::find( $request->input('clave_motivo') );
+            $datas_mtv = Motivo::findOrFail( $request->input('clave_motivo') );
             if( strlen($request->input('dni')) > 5 ){
                 $type_clave = 'Estudiante';
                 $dias_permitidos = $datas_mtv->dias;
@@ -103,7 +104,7 @@ class PrestamosController extends Controller
             $savePrestamo = Prestacion::create([
                 'dni' => trim(htmlentities( $request->input('dni') )),
                 'tipo_dni' => trim(htmlentities($type_clave )),
-                'fk_motivo' => trim(htmlentities( $request->input('clave_motivo') )),
+                'fk_motivo' => $request->input('clave_motivo'),
                 'fk_trabajador_entrega' => Auth::user()->id,
                 'dias_permitidos' => $dias_permitidos,
                 'salida' => \Carbon\Carbon::now(),

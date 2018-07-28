@@ -55,29 +55,26 @@ $(document).ready(function(){
 
 	//$(document).keyup(PushKey);
 
-	$("button").on('click', function(event){
-		name_elemt = $(this).attr('id');
-/*		name_sec = $(this).data('unique');
-		if ( name_sec==='seguimiento' ) {
-			$(".modal section").hide();
-			$(".modal h4").hide();
-			$("#modal-window").modal('toggle');
+	$("a#btn-add-obsv").on('click', function(event){
+		event.preventDefault();
+		id_prestamo	= $(this).attr('href');
+		$("#modal-add-obsv"+id_prestamo).modal('toggle');
+		$("#routing").val('http://localhost/larva/api-prope/public/observation/'+id_prestamo);
+	return false;
+	});
 
-			if ( $(".modal ."+name_elemt).is(':hidden') )
-				$(".modal ."+name_elemt).show();
-		}*/
-		if ( name_elemt==='end-seg' ) {
-			event.preventDefault();
-			alertify.confirm('Seguimiento al prestamo',
+	$("a#end-seg").on('click', function(event){
+		event.preventDefault();
+		id_prestamo	= $(this).attr('href');
+		
+		alertify.confirm('Seguimiento al prestamo',
 											 '¿Desea finalizar el prestamo del documento?, no se volvera a mostrar en esta pantalla.',
 							function(){
-								var Route = $('#'+name_elemt).children().attr('href');
+								var Route = 'http://localhost/larva/api-prope/public/tracing/' + id_prestamo;
 								location.href = Route;
 							},
               function(){ alertify.error('No se ejecutaron procesos...')
             	});
-		}
-
+	return false;
 	});
-
 });

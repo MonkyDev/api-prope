@@ -15,9 +15,7 @@ class Prestacion extends Model
    */
 	protected $fillable = [
     'dni', 
-    'tipo_dni', 
-    'tipo_documento', 
-    'observacion', 
+    'tipo_dni',
     'fk_motivo', 
     'fk_trabajador_entrega',
     'fk_trabajador_recibe',
@@ -33,6 +31,9 @@ class Prestacion extends Model
    * @var array
    */
 
-  protected $hidden = ['created_at', 'updated_at'];
+  protected $hidden = [
+    'created_at',
+    'updated_at'
+  ];
 
 }
