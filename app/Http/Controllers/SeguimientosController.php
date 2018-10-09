@@ -39,12 +39,12 @@ class SeguimientosController extends Controller
             ->join('cat_status AS STU', 'STU.id', '=', 'PRE.fk_status')
             ->select('PRE.id AS id_pre','PRE.*','USR.*','MTV.*','STU.*')
             ->where('PRE.fk_status', '<>', 3)
-            ->get();
+            ->paginate(10);
     	return view('/seguimient', array('title' => 'Seguimiento a los prestamos', 'prestamos' => $full_datas));
     }
 
     public function getObvs(Request $request, $id)
-    { 
+    {
       $msg='default';
       $status='default';
       $code='default';
@@ -57,7 +57,7 @@ class SeguimientosController extends Controller
         ]);
 
         if ( !$validator->fails() ) {
-            
+
             $save = DB::table('tbl_observaciones')->insert([
                 'desc_obsv' => trim(htmlentities( $request->input('desc_obsv') )),
                 'fk_prestamo' => trim(htmlentities( $id )),
@@ -109,11 +109,11 @@ class SeguimientosController extends Controller
         $msg = $body;
         $status = '_success';
         $code = 200;
-      else :        
+      else :
         abort(500); /*Abortamos la operacion mandando un error*/
 
       endif;
-    return response()->json([ 'message' => $msg, 'status' => $status, 'code' => $code]);    
+    return response()->json([ 'message' => $msg, 'status' => $status, 'code' => $code]);
     }
 
 
@@ -128,9 +128,9 @@ class SeguimientosController extends Controller
         $docs_prest = DB::table('rel_prestacion_documento AS RPD')
                       ->select('*')
                       ->join('cat_documentos AS TDC', 'TDC.id', '=', 'RPD.fk_documento')
-                      ->where('RPD.fk_prestamo', $id)                      
+                      ->where('RPD.fk_prestamo', $id)
                       ->get();
-                      
+
         foreach ($docs_prest AS $dp) {
           $body .='
             <tr>
@@ -145,18 +145,18 @@ class SeguimientosController extends Controller
         $msg = $body;
         $status = '_success';
         $code = 200;
-      else :        
+      else :
         abort(500); /*Abortamos la operacion mandando un error*/
 
       endif;
-    return response()->json([ 'message' => $msg, 'status' => $status, 'code' => $code]);    
+    return response()->json([ 'message' => $msg, 'status' => $status, 'code' => $code]);
     }
 
 
   public function finishPre($id){
     $pre = Prestacion::findOrFail($id);
-    
-    if ($pre->fk_status == 1) {
+
+    if ($pre->fk_status != 3 ) {
         $pre->fk_trabajador_recibe = Auth::user()->id;
         $pre->regresa = \Carbon\Carbon::now();
         $pre->fk_status = 3;
@@ -165,35 +165,35 @@ class SeguimientosController extends Controller
             return redirect()->route('seguimiento')->with(array('code'=>200));
         else
           return redirect()->route('seguimiento')->with(array('code'=>302));
-    
+
     } else
         return redirect()->route('seguimiento')->with(array('code'=>304));
-   
+
   }
 
 
 }
 
- 
+
 // $fecha_salida = date_format($prestamo->salida, 'd/m/Y H:i:s');
 
 /*$fecha = date('Y-m-j');
 $nuevafecha = strtotime ( '+2 day' , strtotime ( $fecha ) ) ;
 $nuevafecha = date ( 'Y-m-j' , $nuevafecha );
- 
+
 echo $fecha;
 
 function dias_transcurridos($fecha_i, $fecha_f)
 {
   $dias = (strtotime($fecha_i) - strtotime($fecha_f))/86400;
-  $dias   = abs($dias); 
-  $dias = floor($dias);   
+  $dias   = abs($dias);
+  $dias = floor($dias);
   return $dias;
 }
 // Ejemplo de uso:
 echo dias_transcurridos('2012-07-01','2012-07-18');
 // Salida : 17*/
- 
+
 /*$fecha2 = $fch_salida;
 $nuevafecha = strtotime ( '+'.$prestamo->dias.' day' , strtotime ( $fecha2 ) ) ;
 $fch_limite = date ( 'Y-m-j' , $nuevafecha );*/

@@ -9,7 +9,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-          <table class='table table-striped table-hover TableAdvanced'>
+          <table class='table table-striped table-hover'> <!-- TableAdvanced -->
             <thead>
               <tr>
                 <th>Persona</th>
@@ -20,8 +20,8 @@
                 <th class="text-center">Transcurrido (dias)</th>
                 <th>Autoriza</th>
                 <th>Estatus</th>
-                <th class="text-center">Observaciones</th>
-                <th class="text-center">Acciones</th>
+                <th colspan="2" class="text-center">Observaciones</th>
+                <th colspan="2" class="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -49,6 +49,8 @@
                         <i class="glyphicon glyphicon-plus text-primary"></i>
                       </a>
                       @include('modals.add_observacion', ['id_modal' => $prestamo->id_pre])
+                    </td>
+                    <td class="text-center">
                       <button id="show-obsv" class="btn btn-default seguimiento" title="ver observaciones">
                         <a href="{{ route('allobsv',['id'=>$prestamo->id_pre]) }}"><i class="glyphicon glyphicon-eye-open"></i></a>
                       </button>
@@ -58,6 +60,8 @@
                       <a href="{{ $prestamo->id_pre }}" id="end-seg" class="btn btn-default" title="finalizar seguimiento">
                         <i class="glyphicon glyphicon-floppy-saved text-primary"></i>
                       </a>
+                    </td>
+                    <td class="text-center">
                       <button id="show-doc" class="btn btn-default seguimiento" title="ver documentos prestados">
                         <a href="{{ route('alldopre',['id'=>$prestamo->id_pre]) }}"><i class="glyphicon glyphicon-info-sign" ></i></a>
                       </button>
@@ -68,6 +72,7 @@
               @endif
             </tbody>
           </table>
+          {{ $prestamos->render() }}
         </div>
       </div>
     </div>

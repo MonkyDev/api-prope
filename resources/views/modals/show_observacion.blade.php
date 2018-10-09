@@ -15,7 +15,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td colspan="2"><img src="icons/loading.gif" width="25"/></td></tr>
+            <tr><td colspan="2"><img src="{{asset('/icons/loading.gif')}}" width="25"></td></tr>
           </tbody>
         </table>
       </div>
