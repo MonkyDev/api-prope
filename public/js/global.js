@@ -59,18 +59,18 @@ $(document).ready(function(){
 		event.preventDefault();
 		id_prestamo	= $(this).attr('href');
 		$("#modal-add-obsv"+id_prestamo).modal('toggle');
-		$("#routing").val('http://192.168.2.70:8001/observation/'+id_prestamo);
+		$("#routing").val('http://192.168.2.1/larva/api-prope/public/observation/'+id_prestamo);
 	return false;
 	});
 
 	$("a#end-seg").on('click', function(event){
 		event.preventDefault();
 		id_prestamo	= $(this).attr('href');
-		
+
 		alertify.confirm('Seguimiento al prestamo',
 											 '¿Desea finalizar el prestamo del documento?, no se volvera a mostrar en esta pantalla.',
 							function(){
-								var Route = 'http://192.168.2.70:8001/tracing/' + id_prestamo;
+								var Route = 'http://192.168.2.1/larva/api-prope/public/tracing/' + id_prestamo;
 								location.href = Route;
 							},
               function(){ alertify.error('No se ejecutaron procesos...')
